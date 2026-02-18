@@ -6,7 +6,10 @@
     "baseUrl": ".",
     "types": ["node"],
     "paths": {
-      "@containers/*": ["src/containers/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@shared/*": ["src/shared/*"],
+      "@components/*": ["src/components/*"],
+      "@containers/*": ["src/containers/*"]
     }
   }
 }
