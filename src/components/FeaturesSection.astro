@@ -1,0 +1,41 @@
+---
+import SocialProof from "./SocialProof.astro"
+import FeaturesCard from "./FeaturesCard.astro"
+
+const features = [
+    {
+        title: "Real-time Data",
+        description: "Access and analyze data in real-time for faster decision-making and improved performance.",
+    },
+    {
+        title: "Scalability",
+        description: "Easily scale your operations with our flexible and robust platform designed to grow with your business.",
+    },
+    {
+        title: "Enterprise Reliability",
+        description: "Built with enterprise-grade reliability, ensuring your data is secure and always available when you need it.",
+    },
+]
+---
+<div class="h-[100dvh] bg-bottom bg-contain bg-no-repeat">
+    <div class="relative w-full z-10 flex justify-center h-full">
+        <div class="container mx-auto px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 2xl:px-40">
+            <SocialProof />
+            <div class="text-center">
+                <span class="text-sm text-cyan-400 font-medium">Why Fluentum</span>
+                <div class="text-white text-5xl font-bold my-5 text-balance">
+                    Why team Choose <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-sky-900">Fluentum</span>
+                </div>
+                <span class="text-base text-white font-normal">A unified platform built for real-time data, scale, and enterprise reliability.</span>
+                <!-- Container dengan background pattern yang overflow -->
+                <div class="relative flex flex-wrap justify-center gap-8 mt-10 overflow-hidden">
+                    {features.map((feature, index) => (
+                        <FeaturesCard title={feature.title} description={feature.description}>
+                        </FeaturesCard>
+                        <div class="absolute w-full h-[405px] bottom-0 left-0 right-0 mb-60 bg-[url('/Pattern-2.png')] bg-center bg-no-repeat translate-y-full"></div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

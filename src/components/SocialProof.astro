@@ -1,0 +1,32 @@
+---
+const logos = [
+    { name: 'Paytren', src: "/Paytren.png" },
+    { name: 'Visa', src: "/VISA.png" },
+    { name: 'E-Money', src: "/E-Money.png" },
+];
+---
+<section class="py-16 overflow-hidden">
+    <span class="text-xl block text-center">Organizations rely on Fluentum to power mission-critical workloads.</span>
+    <div class="max-w-3xl px-3 mx-auto overflow-hidden mt-8">
+        <div class="flex animate-marquee gap-8">
+            {Array(10).fill(logos).flat().map((logo, i) => (
+                <img
+                    src={logo.src} 
+                    alt={logo.name}
+                    class="h-10 w-auto flex-shrink-0"
+                />
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    
+    .animate-marquee {
+        animation: marquee 30s linear infinite;
+    }
+</style>
