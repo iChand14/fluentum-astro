@@ -1,5 +1,7 @@
 ---
 import Navbar from "@components/Navbar.astro";
+import Contact from "@components/Contact.astro";
+import Footer from "@components/Footer.astro";
 import "../themes/styles/global.css";
 
 const { title = "Portal" } = Astro.props;
@@ -9,10 +11,10 @@ const { title = "Portal" } = Astro.props;
         <meta charset="UTF-8" />
         <title>{title}</title>
     </head>
-    <body class="relative bg-slate-950 text-white font-sans">
+    <body class="relative py-4 bg-slate-950 text-white font-sans overflow-x-hidden">
         <Navbar />
-        <div class="h-[100dvh]">
-            <slot />
-        </div>
+        <slot />
+        <Contact />
+        <Footer />
     </body>
 </html>

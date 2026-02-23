@@ -1,0 +1,168 @@
+---
+// TabContent.astro
+interface Tab {
+  id: string;
+  label: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
+const tabs: Tab[] = [
+  {
+    id: 'decision',
+    label: 'Decision',
+    title: 'Make decisions with live data',
+    description: 'Stream events and metrics in real time to power dashboards, BI tools, and operational monitoring with sub-second latency. Stream events and metrics in real time to power dashboards, BI tools, and operational monitoring with sub-second latency.',
+    image: './Decision.jpg'
+  },
+  {
+    id: 'driven-apps',
+    label: 'Driven Apps',
+    title: 'Build event-driven applications',
+    description: 'Create responsive applications that react to events instantly. Enable real-time features like live updates, notifications, and collaborative editing with minimal latency.',
+    image: './DrivenApps.jpg'
+  },
+  {
+    id: 'detect-threats',
+    label: 'Detect Threats',
+    title: 'Real-time threat detection',
+    description: 'Monitor security events as they happen. Identify anomalies and potential threats instantly with continuous stream processing and automated alerting.',
+    image: './DetectThreats.jpg'
+  },
+  {
+    id: 'feed-models',
+    label: 'Feed Models',
+    title: 'Power ML models with live data',
+    description: 'Continuously feed fresh data to your machine learning models. Enable real-time predictions and keep your AI systems up to date with streaming data pipelines.',
+    image: './FeedModels.jpg'
+  }
+];
+---
+
+<div class="w-full max-w-6xl mx-auto px-4" data-tabs-container>
+  <!-- Tab Navigation -->
+  <div class="flex flex-row justify-around items-center text-center gap-4 mb-14 border-b border-slate-700/50">
+    {tabs.map((tab, index) => (
+      <button
+        type="button"
+        class:list={[
+          "w-full py-4 text-xl transition-all duration-300 relative group",
+          "text-slate-400 hover:text-sky-300",
+          "data-[active=true]:text-cyan-300 data-[active=true]:font-medium"
+        ]}
+        data-tab={tab.id}
+        data-index={index}
+        data-active={index === 0 ? "true" : "false"}
+        aria-selected={index === 0 ? "true" : "false"}
+        role="tab"
+      >
+        {tab.label}
+        <!-- Active indicator line -->
+        <span 
+          class="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform scale-x-0 transition-transform duration-300 group-data-[active=true]:scale-x-100 shadow-[0_0_10px_rgba(34,211,238,0.5)]"
+        />
+      </button>
+    ))}
+  </div>
+
+  <!-- Tab Panels Container dengan overflow hidden untuk slide animation -->
+  <div class="relative overflow-hidden min-h-[400px]">
+    {tabs.map((tab, index) => (
+      <div
+        class:list={[
+          "flex flex-col lg:flex-row gap-8 justify-between transition-all duration-500 ease-out absolute w-full",
+          "data-[active=true]:relative data-[active=true]:translate-x-0 data-[active=true]:opacity-100",
+          "data-[direction=right]:translate-x-full data-[direction=left]:-translate-x-full",
+          "data-[active=false]:opacity-0"
+        ]}
+        data-panel={tab.id}
+        data-index={index}
+        data-active={index === 0 ? "true" : "false"}
+        data-direction="none"
+        role="tabpanel"
+      >
+        <!-- Image -->
+        <div class="lg:w-1/2">
+          <img 
+            class="rounded-xl aspect-[16/9] h-80 w-full object-cover shadow-[inset_0_0_20px_rgba(0,0,0,0.3)] ring-1 ring-slate-700/50" 
+            src={tab.image} 
+            alt={`${tab.label} Image`}
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+        </div>
+
+        <!-- Content -->
+        <div class="flex flex-col gap-6 py-8 lg:w-1/2 lg:pl-8">
+          <h2 class="font-bold text-sky-500 text-3xl leading-tight">
+            {tab.title}
+          </h2>
+          <p class="text-slate-300 text-lg leading-relaxed">
+            {tab.description}
+          </p>
+          
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('[data-tabs-container]');
+    if (!container) return;
+
+    const tabButtons = container.querySelectorAll('[data-tab]');
+    const tabPanels = container.querySelectorAll('[data-panel]');
+    let currentIndex = 0;
+
+    function switchTab(targetId: string) {
+      const targetButton = container?.querySelector(`[data-tab="${targetId}"]`);
+      const targetIndex = parseInt(targetButton?.getAttribute('data-index') || '0');
+      
+      // Tentukan arah animasi
+      const direction = targetIndex > currentIndex ? 'right' : 'left';
+      currentIndex = targetIndex;
+
+      // Update buttons
+      tabButtons.forEach(button => {
+        const isActive = button.getAttribute('data-tab') === targetId;
+        button.setAttribute('data-active', isActive ? 'true' : 'false');
+        button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      // Update panels dengan slide animation
+      tabPanels.forEach(panel => {
+        const isActive = panel.getAttribute('data-panel') === targetId;
+
+        if (isActive) {
+          // Panel yang akan aktif: geser dari arah yang sesuai
+          panel.setAttribute('data-direction', direction === 'right' ? 'right' : 'left');
+          panel.setAttribute('data-active', 'false');
+          
+          // Force reflow menggunakan getBoundingClientRect (type-safe)
+          void panel.getBoundingClientRect();
+          
+          // Aktifkan panel
+          panel.setAttribute('data-active', 'true');
+          panel.setAttribute('data-direction', 'none');
+        } else {
+          // Panel yang tidak aktif: geser keluar ke arah berlawanan
+          const isCurrentActive = panel.getAttribute('data-active') === 'true';
+          if (isCurrentActive) {
+            panel.setAttribute('data-direction', direction === 'right' ? 'left' : 'right');
+            panel.setAttribute('data-active', 'false');
+          }
+        }
+      });
+    }
+
+    // Add click handlers
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+        if (tabId) switchTab(tabId);
+      });
+    });
+  });
+</script>

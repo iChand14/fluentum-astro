@@ -1,10 +1,90 @@
 ---
 import HeroSection from "@components/HeroSection.astro"
 import FeaturesSection from "@components/FeaturesSection.astro"
+import SocialProof from "@components/SocialProof.astro"
+import FeaturesCard from "@components/FeaturesCard.astro"
+import TabContent from "@components/TabContent.astro"
+
+const features = [
+    {
+        title: "Real-time Data",
+        description: "Access and analyze data in real-time for faster decision-making and improved performance.",
+    },
+    {
+        title: "Scalability",
+        description: "Easily scale your operations with our flexible and robust platform designed to grow with your business.",
+    },
+    {
+        title: "Enterprise Reliability",
+        description: "Built with enterprise-grade reliability, ensuring your data is secure and always available when you need it.",
+    },
+]
 ---
 <div class="bg-gradient-to-b from-slate-950 via-slate-900 to-sky-900/75">
     <HeroSection />
 </div>
 <div class="bg-gradient-to-t from-slate-950 via-slate-900 to-sky-900/75">
-    <FeaturesSection />
+    <FeaturesSection>
+        <div class="text-center">
+            <SocialProof />
+            <span class="text-sm text-cyan-400 font-medium">Why Fluentum</span>
+            <div class="text-white text-5xl font-bold my-5 text-balance">
+                Why team Choose <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-sky-900">Fluentum</span>
+            </div>
+            <span class="text-base text-white font-normal">A unified platform built for real-time data, scale, and enterprise reliability.</span>
+            <!-- Container dengan background pattern yang overflow -->
+            <div class="relative flex flex-wrap justify-center gap-8 mt-10 overflow-hidden">
+                {features.map((feature, index) => (
+                    <FeaturesCard title={feature.title} description={feature.description}>
+                    </FeaturesCard>
+                    <div class="absolute w-full h-[405px] bottom-0 left-0 right-0 mb-60 bg-[url('/Pattern-2.png')] bg-center bg-no-repeat translate-y-full"></div>
+                ))}
+            </div>
+        </div>
+    </FeaturesSection>
+</div>
+<div class="bg-slate-950">
+    <FeaturesSection>
+        <div class="text-center max-w-5xl mx-auto mb-14">
+            <span class="text-sm text-cyan-400 font-medium">Platform</span>
+            <div class="text-white text-5xl font-bold my-5 text-pretty">
+                Core Features Built for <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">Reliable</span>, <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">Scalable</span> 
+                Production Workloads.
+            </div>
+            <span class="text-base text-white font-normal">A unified platform built for real-time data, scale, and enterprise reliability.</span>
+        </div>
+        <div class="grid grid-cols-3 grid-rows-2 gap-6">
+            <div class="col-span-2 row-span-1 text-start bg-transparent border border-blue-500 rounded-2xl px-6 py-4">
+                <h5 class="text-xl font-medium mb-3">Kafka-compatible APIs</h5>
+                <span class="text-sm">Run existing workloads without rewriting applications</span>
+            </div>
+            <div class="col-span-1 row-span-2 text-start bg-transparent border border-blue-500 rounded-2xl px-6 py-4">
+                <h5 class="text-xl font-medium mb-3">Built-in Connectors</h5>
+                <span class="text-sm">Integrate with databases, cloud services, and analytics tools</span>
+            </div>
+            <div class="col-span-1 row-span-1 h-72 text-start bg-transparent border border-blue-500 rounded-2xl px-6 py-4">
+                <h5 class="text-xl font-medium mb-3">Observability & Monitoring</h5>
+                <span class="text-sm">Gain visibility into pipelines and system performance</span>
+            </div>
+            <div class="col-span-1 row-span-1 text-start bg-transparent border border-blue-500 rounded-2xl px-6 py-4">
+                <h5 class="text-xl font-medium mb-3">Security & Access Control</h5>
+                <span class="text-sm">Enterprise-grade authentication and role-based access</span>
+            </div>
+        </div>
+    </FeaturesSection>
+</div>
+<div class="bg-gradient-to-b from-slate-950 to-cyan-900 overflow-x-hidden">
+    <FeaturesSection>
+        <div class="text-start max-w-5xl mb-14">
+            <span class="text-sm text-cyan-400 font-medium">Use Case</span>
+            <div class="text-white text-5xl font-bold my-5 text-pretty">
+                Core Features Built for 
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-900 block">Real-time Data</span>
+            </div>
+        </div>
+        <div class="relative w-full">
+            <div class="absolute -right-96 top-0 -translate-y-1/2 w-[1134px] h-[524px] bg-[url('./Pattern-3.png')] bg-no-repeat bg-contain bg-center  pointer-events-none"></div>
+            <TabContent />
+        </div>
+    </FeaturesSection>
 </div>
