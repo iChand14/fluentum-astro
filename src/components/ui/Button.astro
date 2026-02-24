@@ -1,0 +1,198 @@
+---
+// components/ui/Button.astro
+
+type ColorValue = '50' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | '950';
+
+interface GradientColors {
+  from: string;
+  via?: string;
+  to: string;
+}
+
+interface SolidColor {
+  color: string;
+  value?: ColorValue;
+}
+
+interface OutlineColor {
+  color: string;
+  value?: ColorValue;
+  textValue?: ColorValue;
+  hoverBg?: boolean;
+}
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'custom';
+  
+  // Custom colors
+  gradient?: GradientColors;
+  solid?: SolidColor;
+  outlineColor?: OutlineColor;
+  
+  // Layout
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  fullWidth?: boolean;
+  
+  // Styling
+  class?: string;
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  shadow?: boolean;
+  
+  // Icon positioning
+  iconPosition?: 'left' | 'right';
+  gap?: 'sm' | 'md' | 'lg';
+}
+
+const {
+  variant = 'primary',
+  gradient,
+  solid,
+  outlineColor,
+  size = 'md',
+  href,
+  type = 'button',
+  fullWidth = false,
+  class: className = '',
+  rounded = 'lg',
+  shadow = true,
+  iconPosition = 'right',
+  gap = 'md',
+} = Astro.props;
+
+// Build classes
+function buildGradientClass(colors: GradientColors): string {
+  const from = `from-${colors.from}`;
+  const via = colors.via ? `via-${colors.via}` : '';
+  const to = `to-${colors.to}`;
+  return `bg-gradient-to-r ${from} ${via} ${to}`.trim();
+}
+
+function buildSolidClass(color: SolidColor): string {
+  const value = color.value || '500';
+  return `bg-${color.color}-${value}`;
+}
+
+function buildOutlineClass(colors: OutlineColor): string {
+  const borderValue = colors.value || '500';
+  const textValue = colors.textValue || '100';
+  const hoverBg = colors.hoverBg !== false ? `hover:bg-${colors.color}-${borderValue}/10` : '';
+  const nextValue = Math.min(parseInt(borderValue) + 100, 950);
+  
+  return [
+    'bg-transparent',
+    'border',
+    `border-${colors.color}-${borderValue}`,
+    `text-${colors.color}-${textValue}`,
+    hoverBg,
+    `hover:border-${colors.color}-${nextValue}`
+  ].join(' ');
+}
+
+// Determine style
+let finalBgClass = '';
+let finalHoverClass = '';
+let finalTextClass = '';
+
+if (gradient) {
+  finalBgClass = buildGradientClass(gradient);
+  finalHoverClass = 'hover:opacity-90';
+  finalTextClass = 'text-white';
+} else if (solid) {
+  finalBgClass = buildSolidClass(solid);
+  finalHoverClass = `hover:bg-${solid.color}-${Math.min(parseInt(solid.value || '500') + 100, 950)}`;
+  finalTextClass = 'text-white';
+} else if (outlineColor) {
+  const outlineStyle = buildOutlineClass(outlineColor);
+  finalBgClass = outlineStyle;
+  finalHoverClass = '';
+  finalTextClass = '';
+} else {
+  // Default variants
+  const variants = {
+    primary: {
+      style: 'bg-gradient-to-r from-blue-500 to-blue-900 hover:from-blue-400 hover:to-blue-800',
+      text: 'text-white',
+    },
+    secondary: {
+      style: 'bg-gradient-to-r from-cyan-500 to-cyan-900 hover:from-cyan-400 hover:to-cyan-800',
+      text: 'text-white',
+    },
+    outline: {
+      style: 'bg-transparent border border-blue-500 hover:bg-blue-500/10 hover:border-blue-400',
+      text: 'text-white',
+    },
+    ghost: {
+      style: 'bg-transparent hover:bg-white/10',
+      text: 'text-white',
+    },
+    custom: {
+      style: 'bg-blue-500 hover:bg-blue-600',
+      text: 'text-white',
+    },
+  };
+  finalBgClass = variants[variant].style;
+  finalHoverClass = '';
+  finalTextClass = variants[variant].text;
+}
+
+// Size classes
+const sizes = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-6 py-3 text-base',
+  lg: 'px-8 py-4 text-lg',
+};
+
+// Gap classes
+const gaps = {
+  sm: 'gap-2',
+  md: 'gap-3',
+  lg: 'gap-4',
+};
+
+// Rounded classes
+const roundeds = {
+  none: 'rounded-none',
+  sm: 'rounded-sm',
+  md: 'rounded-md',
+  lg: 'rounded-lg',
+  xl: 'rounded-xl',
+  full: 'rounded-full',
+};
+
+// Shadow
+const hasColoredBg = gradient || solid || variant === 'primary' || variant === 'secondary';
+const shadowClass = shadow && hasColoredBg
+  ? 'shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_30px_rgba(0,0,0,0.4)]'
+  : outlineColor || variant === 'outline' || variant === 'ghost'
+    ? 'shadow-[0_0_15px_rgba(0,0,0,0.1)] hover:shadow-[0_0_20px_rgba(0,0,0,0.2)]'
+    : '';
+
+const flexDirection = iconPosition === 'left' ? 'flex-row' : 'flex-row-reverse';
+
+const classes = [
+  'inline-flex items-center justify-center font-semibold transition-all duration-300',
+  flexDirection,
+  gaps[gap],
+  'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500/50',
+  roundeds[rounded],
+  sizes[size],
+  finalBgClass,
+  finalHoverClass,
+  finalTextClass,
+  shadowClass,
+  fullWidth ? 'w-full' : '',
+  className,
+].filter(Boolean).join(' ');
+---
+
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes}>
+    <slot />
+  </button>
+)}

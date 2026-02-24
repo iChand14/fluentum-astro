@@ -3,34 +3,42 @@ import FeaturesSection from "./FeaturesSection.astro"
 ---
 <div class="bg-gradient-to-b from-cyan-900 to-slate-950">
     <FeaturesSection>
-        <div class="flex flex-row justify-between w-full h-[499px] bg-slate-900 rounded-2xl p-10 bg-[url('./Pattern-3.png')] bg-no-repeat bg-contain bg-center border border-blue-500 mb-20">
-            <div class="flex flex-col gap-4 w-1/4 justify-between">
+        <div class="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between w-full h-auto lg:h-[499px] bg-slate-900 rounded-2xl p-10 bg-[url('./Vector.png')] bg-no-repeat bg-center border border-blue-500 mb-20">
+            <div class="flex flex-col gap-4 w-full xl:w-1/4 justify-between">
                 <div class="flex flex-col gap-4 justify-between">
                     <img src="./icon-fluentum.png" alt="Fluentum Icon" class="w-[176px] h-auto">
                     <div class="flex flex-row gap-4 justify-between w-3/4">
                         <div class="flex flex-col gap-4">
-                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-500 via-60% to-slate-800">Home</a>
-                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-500 via-60% to-slate-800">Product</a>
-                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-500 via-60% to-slate-800">Resources</a>
+                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-400 via-40% to-slate-800">Home</a>
+                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-400 via-40% to-slate-800">Product</a>
+                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-400 via-40% to-slate-800">Resources</a>
                         </div>
                         <div class="flex flex-col gap-4">
-                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-500 via-60% to-slate-800">Solutions</a>
-                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-500 via-60% to-slate-800">Pricing</a>
-                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-500 via-60% to-slate-800">Company</a>
+                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-400 via-40% to-slate-800">Solutions</a>
+                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-400 via-40% to-slate-800">Pricing</a>
+                            <a href="#" class="text-lg bg-clip-text text-transparent underline bg-gradient-to-r from-blue-600 from-20% via-blue-400 via-40% to-slate-800">Company</a>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <h5 class="text-sm font-medium leading-4">Follow US</h5>
-                    <div class="justify-start">
-                        <span>a</span>
-                        <span>b</span>
-                        <span>c</span>
-                        <span>d</span>
+                <div class="hidden lg:flex flex-col gap-4">
+                    <h5 class="text-white text-lg font-medium">Follow US</h5>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-blue-400 flex items-center justify-center text-white hover:bg-blue-400 hover:text-blue-900 transition-all">
+                            <img src="./Facebook.png" alt="Facebook Icon">
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-blue-400 flex items-center justify-center text-white hover:bg-blue-400 hover:text-blue-900 transition-all">
+                            <img src="./Google.png" alt="Google Icon">
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-blue-400 flex items-center justify-center text-white hover:bg-blue-400 hover:text-blue-900 transition-all">
+                            <img src="./Instagram.png" alt="Instagram Icon">
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-blue-400 flex items-center justify-center text-white hover:bg-blue-400 hover:text-blue-900 transition-all">
+                            <img src="./YouTube.png" alt="YouTube Icon">
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col gap-4 w-1/4 justify-between">
+            <div class="flex flex-col gap-4 w-full xl:w-1/4 justify-between">
                 <div class="flex flex-col gap-2">
                     <h5 class="text-sm font-medium leading-4">Contact Us</h5>
                     <p class="text-lg text-gray-400">(022) 7272408</p>
@@ -43,15 +51,32 @@ import FeaturesSection from "./FeaturesSection.astro"
                     <h5 class="text-sm font-medium leading-4">Email</h5>
                     <p class="text-lg text-gray-400">hello@fluentum.com</p>
                 </div>
+                <div class="flex lg:hidden flex-col gap-4">
+                    <h5 class="text-white text-lg font-medium">Follow US</h5>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-blue-400 flex items-center justify-center text-white hover:bg-blue-400 hover:text-blue-900 transition-all">
+                            <img src="./Facebook.png" alt="Facebook Icon">
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-blue-400 flex items-center justify-center text-white hover:bg-blue-400 hover:text-blue-900 transition-all">
+                            <img src="./Google.png" alt="Google Icon">
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-blue-400 flex items-center justify-center text-white hover:bg-blue-400 hover:text-blue-900 transition-all">
+                            <img src="./Instagram.png" alt="Instagram Icon">
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-blue-400 flex items-center justify-center text-white hover:bg-blue-400 hover:text-blue-900 transition-all">
+                            <img src="./YouTube.png" alt="YouTube Icon">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="flex flex-row justify-between items-end gap-4">
-            <h1 class="text-4xl w-1/2 font-medium">
+        <div class="flex flex-col xl:flex-row justify-center xl:justify-between items-center xl:items-end gap-8 xl:gap-4">
+            <h1 class="text-4xl w-full xl:w-1/2 font-medium text-center xl:text-left">
                 Get the latest product updates, insights, and offers tailored to your real-time data needs
             </h1>
-            <div class="w-1/2 px-2">
-                <span class="text-white text-lg font-medium block mb-4">
+            <div class="xl:w-1/2 px-8 xl:px-2">
+                <span class="text-center xl:text-start text-white text-lg font-medium block mb-4">
                     Leave your email and we'll share product updates, insights, and offers.
                 </span>
   

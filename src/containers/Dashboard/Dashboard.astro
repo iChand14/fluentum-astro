@@ -1,5 +1,6 @@
 ---
 import FeaturesSection from "@components/FeaturesSection.astro"
+import Button from "@components/ui/Button.astro"
 
 const logos = [
     { name: 'Paytren', src: "/Paytren.png" },
@@ -43,62 +44,81 @@ const tabs: Tab[] = [
     label: 'Driven Apps',
     title: 'Build event-driven applications',
     description: 'Create responsive applications that react to events instantly. Enable real-time features like live updates, notifications, and collaborative editing with minimal latency.',
-    image: './DrivenApps.jpg'
+    image: ''
   },
   {
     id: 'detect-threats',
     label: 'Detect Threats',
     title: 'Real-time threat detection',
     description: 'Monitor security events as they happen. Identify anomalies and potential threats instantly with continuous stream processing and automated alerting.',
-    image: './DetectThreats.jpg'
+    image: ''
   },
   {
     id: 'feed-models',
     label: 'Feed Models',
     title: 'Power ML models with live data',
     description: 'Continuously feed fresh data to your machine learning models. Enable real-time predictions and keep your AI systems up to date with streaming data pipelines.',
-    image: './FeedModels.jpg'
+    image: ''
   }
 ];
 ---
 <div class="bg-gradient-to-b from-slate-950 via-slate-900 to-sky-900/75">
-    <section class="h-[100dvh] pt-20 bg-[url('/Pattern.png')] bg-bottom bg-contain bg-no-repeat">
 
-    <div class="relative w-full z-10 flex items-center justify-center h-full">
-        <div class="container mx-auto px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 2xl:px-40">
-            <div class="flex text-center justify-center mb-40">
-                <img src="/hero-image.png" alt="Hero Image" class="transform scale-125 transition-transform duration-300">
-            </div>
-            <div class="grid grid-cols-3 gap-4">
-                <div class="col-span-2">
-                    <span class="text-cyan-400">Real-Time Data Platform</span>
-                    <div class="text-white text-5xl font-bold my-4 text-balance">
-                        Power <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-sky-900">Real-Time Data</span> for Analytics 
-                        and Event-driven Apps
-                    </div>
-                    <p class="text-lg text-gray-400 text-pretty">
-                        Delivering reliable event-driven integration with full visibility, control, and scalability
-                        for modern enterprice and erchitectures.
-                    </p>
-                </div>
-                <div class="col-span-1 content-end space-x-4">
-                    <button class="px-6 py-4 text-nowrap font-semibold bg-gradient-to-r from-blue-500 to-blue-900 rounded-lg">Request Demo</button>
-                    <button class="px-6 py-4 text-nowrap font-semibold bg-transparent border border-blue-500 rounded-lg">Explore Platforms</button>
-                </div>
-            </div>
+    <section class="min-h-[100dvh] pt-20 lg:pt-24 xl:pt-40 bg-[url('/Pattern.png')] bg-bottom bg-contain bg-no-repeat">
+    
+        <div class="relative w-full z-10 flex items-center justify-center h-full">
+            <div class="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
             
-        </div>
-    </div>
+                <div class="flex text-center justify-center mb-40">
+                    <img src="/hero-image.png" alt="Hero Image" class="w-full max-w-lg sm:max-w-xl lg:max-w-2xl xl:max-w-3xl transform scale-100 lg:scale-110 transition-transform duration-300" />
+                </div>
 
-  </section>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-end">
+                    
+                    <div class="col-span-1 lg:col-span-2 text-center lg:text-start">
+                        <span class="text-cyan-400 text-sm lg:text-base font-medium tracking-wide uppercase">
+                            Real-Time Data Platform
+                        </span>
+                        
+                        <h1 class="text-white text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold my-4 lg:my-6 leading-tight">
+                            Power <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-sky-600">Real-Time Data</span> for Analytics 
+                            and Event-driven Apps
+                        </h1>
+                        
+                        <p class="text-base lg:text-lg text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            Delivering reliable event-driven integration with full visibility, control, and scalability
+                            for modern enterprise and architectures.
+                        </p>
+                    </div>
+
+                    <div class="col-span-1 content-end w-full">
+                        <div class="flex flex-row gap-3 justify-center lg:justify-start mt-6">
+                            
+                            <Button gradient={{ from: 'blue-500', to: 'blue-900' }} rounded="lg" class="text-nowrap">
+                                Request Demo
+                            </Button>
+                            
+                            <Button outlineColor={{ color: 'blue', value: '500' }} rounded="lg" class="text-nowrap">
+                                Explore Platform
+                            </Button>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            
+            </div>
+        </div>
+
+    </section>
 </div>
 <div class="bg-gradient-to-t from-slate-950 via-slate-900 to-sky-900/75">
     <FeaturesSection>
         <div class="text-center">
             <section class="overflow-hidden mb-16">
                 <span class="text-xl block text-center">Organizations rely on Fluentum to power mission-critical workloads.</span>
-                <div class="max-w-3xl px-3 mx-auto overflow-hidden mt-8">
-                    <div class="flex animate-marquee gap-8">
+                <div class="max-w-3xl px-3 overflow-hidden mx-auto mt-8">
+                    <div class="flex justify-center animate-marquee gap-8">
                         {Array(10).fill(logos).flat().map((logo, i) => (
                             <img
                                 src={logo.src} 
@@ -117,11 +137,14 @@ const tabs: Tab[] = [
             <!-- Container dengan background pattern yang overflow -->
             <div class="relative flex flex-wrap justify-center gap-8 mt-10 overflow-hidden">
                 {features.map((feature, index) => (
-                    <div class="w-[350px] h-[400px] py-6 px-4 bg-gradient-to-b from-blue-500 to-blue-950 rounded-xl relative text-left">
-                        <div class="text-white font-medium text-xl">{feature.title}</div>
-                        <span class="text-white font-normal text-sm">{feature.description}</span>
+                    <div class="w-[350px] h-[400px] min-[1280px]:py-6 min-[1280px]:px-4 bg-gradient-to-b from-blue-500 to-blue-950 rounded-xl relative text-left">
+                        <div class="max-[1280px]:py-6 max-[1280px]:px-4">
+                            <div class="text-white font-medium text-xl">{feature.title}</div>
+                            <span class="text-white font-normal text-sm">{feature.description}</span>
+                        </div>
+                        <div class="min-[1280px]:hidden w-full h-[405px] bottom-0 left-0 right-0 mb-60 bg-[url('/Pattern-2.png')] bg-center bg-no-repeat"></div>
                     </div>
-                    <div class="absolute w-full h-[405px] bottom-0 left-0 right-0 mb-60 bg-[url('/Pattern-2.png')] bg-center bg-no-repeat translate-y-full"></div>
+                    <div class="hidden min-[1280px]:block absolute w-full h-[405px] bottom-0 left-0 right-0 mb-60 bg-[url('/Pattern-2.png')] bg-center bg-no-repeat translate-y-full"></div>
                 ))}
             </div>
         </div>
@@ -137,23 +160,48 @@ const tabs: Tab[] = [
             </div>
             <span class="text-base text-white font-normal">A unified platform built for real-time data, scale, and enterprise reliability.</span>
         </div>
-        <div class="grid grid-cols-3 grid-rows-2 gap-6">
-            <div class="col-span-2 row-span-1 text-start bg-transparent border border-blue-500 rounded-2xl px-6 py-4">
-                <h5 class="text-xl font-medium mb-3">Kafka-compatible APIs</h5>
-                <span class="text-sm">Run existing workloads without rewriting applications</span>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
+            
+            <div class="2xl:col-span-2 bg-transparent border border-blue-500/30 rounded-2xl p-6 flex sm:flex-col lg:flex-row justify-between min-h-[200px]">
+                <div class="w-full lg:w-1/2">
+                    <h3 class="text-white text-lg font-semibold mb-2">Kafka-compatible APIs</h3>
+                    <p class="text-gray-400 text-sm">Run existing workloads without rewriting applications</p>
+                </div>
+                <div class="flex-grow flex items-center justify-center 2xl:justify-end">
+                    <img src="./Kafka-api.png" alt="Kafka API" class="max-w-full max-h-[150px] lg:max-h-[300px] 2xl:max-h-[200px] w-auto h-auto object-contain" />
+                </div>
             </div>
-            <div class="col-span-1 row-span-2 text-start bg-transparent border border-blue-500 rounded-2xl px-6 py-4">
-                <h5 class="text-xl font-medium mb-3">Built-in Connectors</h5>
-                <span class="text-sm">Integrate with databases, cloud services, and analytics tools</span>
+
+            <div class="row-span-1 2xl:row-span-2 bg-transparent border border-blue-500/30 rounded-2xl p-6 flex sm:flex-col lg:flex-row 2xl:flex-col">
+                <div class="w-full lg:w-1/2 2xl:w-full">
+                    <h3 class="text-white text-lg font-semibold mb-2">Built-in Connectors</h3>
+                    <p class="text-gray-400 text-sm mb-6">Integrate with databases, cloud services, and analytics tools</p>
+                </div>
+                <div class="flex-grow flex items-center justify-center">
+                    <img src="./Connector.png" alt="Connectors" class="max-w-full max-h-[150px] 2xl:max-h-[300px] w-auto h-auto object-contain" />
+                </div>
             </div>
-            <div class="col-span-1 row-span-1 h-72 text-start bg-transparent border border-blue-500 rounded-2xl px-6 py-4">
-                <h5 class="text-xl font-medium mb-3">Observability & Monitoring</h5>
-                <span class="text-sm">Gain visibility into pipelines and system performance</span>
+
+            <div class="bg-transparent border border-blue-500/30 rounded-2xl p-6 flex flex-col lg:flex-row 2xl:flex-col justify-between min-h-[200px]">
+                <div class="w-full lg:w-1/2 2xl:w-full">
+                    <h3 class="text-white text-lg font-semibold mb-2">Observability & Monitoring</h3>
+                    <p class="text-gray-400 text-sm">Gain visibility into pipelines and system performance</p>
+                </div>
+                <div class="flex-grow flex items-center justify-center mt-6 lg:mt-0 2xl:mt-6">
+                    <img src="./Observability.png" alt="Observability" class="w-fmax-w-full max-h-[150px] lg:max-h-[300px] w-auto h-auto object-contain" />
+                </div>
             </div>
-            <div class="col-span-1 row-span-1 text-start bg-transparent border border-blue-500 rounded-2xl px-6 py-4">
-                <h5 class="text-xl font-medium mb-3">Security & Access Control</h5>
-                <span class="text-sm">Enterprise-grade authentication and role-based access</span>
+
+            <div class="bg-transparent border border-blue-500/30 rounded-2xl p-6 flex flex-col lg:flex-row 2xl:flex-col justify-between min-h-[200px]">
+                <div class="w-full lg:w-1/2 2xl:w-full">
+                    <h3 class="text-white text-lg font-semibold mb-2">Security & Access Control</h3>
+                    <p class="text-gray-400 text-sm">Enterprise-grade authentication and role-based access</p>
+                </div>
+                <div class="flex-grow flex items-center justify-center mt-6 lg:mt-0 2xl:mt-6">
+                    <img src="./Security.png" alt="Security" class="max-w-full max-h-[100px] lg:max-h-[300px] 2xl:max-h-[200px] w-auto h-auto object-contain" />
+                </div>
             </div>
+
         </div>
     </FeaturesSection>
 </div>
@@ -168,7 +216,7 @@ const tabs: Tab[] = [
         </div>
         <div class="relative w-full">
             <div class="absolute -right-96 top-0 -translate-y-1/2 w-[1134px] h-[524px] bg-[url('./Pattern-3.png')] bg-no-repeat bg-contain bg-center  pointer-events-none"></div>
-            <div class="w-full max-w-6xl mx-auto px-4" data-tabs-container>
+            <div class="w-full mx-auto px-4" data-tabs-container>
                 <!-- Tab Navigation -->
                 <div class="flex flex-row justify-around items-center text-center gap-4 mb-14 border-b border-slate-700/50">
                     {tabs.map((tab, index) => (
@@ -206,7 +254,7 @@ const tabs: Tab[] = [
                     </div>
                     ))}
                 </div>
-                </div>
+            </div>
         </div>
     </FeaturesSection>
 </div>
