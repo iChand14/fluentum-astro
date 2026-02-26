@@ -1,6 +1,8 @@
 ---
 import FeaturesSection from "@components/FeaturesSection.astro"
-import Button from "@components/ui/Button.astro"
+import HeroSection from "@components/HeroSection.astro";
+
+const titleText = `Power <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-sky-600">Real-Time Data</span> for Analytics and Event-driven Apps`;
 
 const logos = [
     { name: 'Paytren', src: "/Paytren.png" },
@@ -63,54 +65,14 @@ const tabs: Tab[] = [
 ];
 ---
 <div class="bg-gradient-to-b from-slate-950 via-slate-900 to-sky-900/75">
-
-    <section class="min-h-[100dvh] pt-20 lg:pt-24 xl:pt-40 bg-[url('/Pattern.png')] bg-bottom bg-contain bg-no-repeat">
-    
-        <div class="relative w-full z-10 flex items-center justify-center h-full">
-            <div class="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
-            
-                <div class="flex text-center justify-center mb-40">
-                    <img src="/hero-image.png" alt="Hero Image" class="w-full max-w-lg sm:max-w-xl lg:max-w-2xl xl:max-w-3xl transform scale-100 lg:scale-110 transition-transform duration-300" />
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-end">
-                    
-                    <div class="col-span-1 lg:col-span-2 text-center lg:text-start">
-                        <span class="text-cyan-400 text-sm lg:text-base font-medium tracking-wide uppercase">
-                            Real-Time Data Platform
-                        </span>
-                        
-                        <h1 class="text-white text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold my-4 lg:my-6 leading-tight">
-                            Power <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-sky-600">Real-Time Data</span> for Analytics 
-                            and Event-driven Apps
-                        </h1>
-                        
-                        <p class="text-base lg:text-lg text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                            Delivering reliable event-driven integration with full visibility, control, and scalability
-                            for modern enterprise and architectures.
-                        </p>
-                    </div>
-
-                    <div class="col-span-1 content-end w-full">
-                        <div class="flex flex-row gap-3 justify-center lg:justify-start mt-6">
-                            
-                            <Button gradient={{ from: 'blue-500', to: 'blue-900' }} rounded="lg" class="text-nowrap">
-                                Request Demo
-                            </Button>
-                            
-                            <Button outlineColor={{ color: 'blue', value: '500' }} rounded="lg" class="text-nowrap">
-                                Explore Platform
-                            </Button>
-                            
-                        </div>
-                    </div>
-
-                </div>
-            
-            </div>
-        </div>
-
-    </section>
+    <HeroSection
+        img="./hero-image.png"
+        eyebrow="Real-Time Date Platform"
+        title={titleText}
+        description="Delivering reliable event-driven integration with full visibility, control, and scalability for modern enterprise architectures."
+        primaryButton={{ text: "Request Demo", href: "/" }}
+        secondaryButton={{ text: "Explore Platform", href: "/" }}
+    />
 </div>
 <div class="bg-gradient-to-t from-slate-950 via-slate-900 to-sky-900/75">
     <FeaturesSection>

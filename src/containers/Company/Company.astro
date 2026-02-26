@@ -1,0 +1,175 @@
+---
+import HeroSection from "@components/HeroSection.astro"
+import FeaturesSection from "@components/FeaturesSection.astro";
+import TestimonialCarousel from "@components/TestimonialCarousel.astro";
+import Button from "@components/ui/Button.astro";
+
+const titleText = `Building the Backbone for Real-Time Data Infrastructure`;
+
+const logos = [
+    { name: 'Paytren', src: "/Paytren.png" },
+    { name: 'Visa', src: "/VISA.png" },
+    { name: 'E-Money', src: "/E-Money.png" },
+];
+
+---
+<div class="bg-gradient-to-b from-slate-950 via-slate-900 to-sky-900/75">
+    <HeroSection
+        eyebrow="About Us"
+        title={titleText}
+        description="We create a scalable, low-latency data streaming platform that helps teams build intelligent applications, analytics pipelines, and AI systems in real time"
+        primaryButton={{ text: "Request Demo", href: "/" }}
+        secondaryButton={{ text: "Explore Platform", href: "/" }}
+    />
+</div>
+<div class="bg-gradient-to-b from-sky-900/75 to-slate-950">
+    <FeaturesSection>
+        <div class="text-start max-w-5xl mb-14">
+            <span class="text-sm text-cyan-400 font-medium">Use Case</span>
+            <div class="w-1/2 text-white text-5xl font-bold my-5 text-pretty">
+                Why We Built This Company
+            </div>
+        </div>
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12">
+            <div class="grid grid-cols-3 grid-rows-2 px-10 w-2/3 lg:w-1/2 xl:w-1/2">
+                <div class="col-span-1 row-span-1"></div>
+                <div class="col-span-1 row-span-1 text-start px-6 py-4 custom-gradient-to-t">
+                    <span class="font-bold text-2xl"></span>
+                    <p class="font-normal text-base"></p>
+                </div>
+                <div class="col-span-1 row-span-1"></div>
+                <div class="col-span-1 row-span-1 text-start px-6 py-4 custom-gradient-to-l">
+                    <span class="font-bold text-2xl">2024</span>
+                    <p class="font-normal text-base">Founded</p>
+                </div>
+                <div class="col-span-1 row-span-1 text-start px-6 py-4 bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-900">
+                    <span class="font-bold text-2xl">50+</span>
+                    <p class="font-normal text-base">Customers</p>
+                </div>
+                <div class="col-span-1 row-span-1 text-start px-6 py-4 custom-gradient-to-r">
+                    <span class="font-bold text-2xl">10</span>
+                    <p class="font-normal text-base">Regions</p>
+                </div>
+            </div>
+            <div class="text-base text-balance w-full lg:w-1/2 px-6 py-4">
+                <p class="text-lg text-slate-300 leading-relaxed mb-6 text-balance">
+                    Modern organizations depend on data, but most systems are still built for batch processing and delayed insights. We founded <span class="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-sky-600">Fluentum</span> to change that.
+                </p>
+                <p class="text-lg text-slate-300 leading-relaxed mb-6 text-balance">
+                    Our team has spent years building large-scale data platforms for high-growth companies and mission-critical systems. We saw firsthand how complex, fragile, and expensive real-time infrastructure can be—and decided to build a platform that is simpler, faster, and built for production from day one.
+                </p>
+                <p class="text-lg text-slate-300 leading-relaxed text-balance">
+                    Today, we help engineering teams stream, process, and govern data at scale, enabling them to <span class="font-semibold text-white">move faster</span> and <span class="font-semibold text-white">build smarter products.</span>
+                </p>
+            </div>
+        </div>
+    </FeaturesSection>
+</div>
+<div class="bg-gradient-to-b from-slate-950 to-sky-900/75">
+    <section class="py-20 lg:pt-24 xl:pt-40 bg-[url('/Pattern.png')] bg-bottom bg-contain bg-no-repeat relative">
+        <div class="hidden lg:block absolute left-1/2 bottom-0 w-[2px] h-[calc(100%-6rem)] bg-gradient-to-t from-cyan-400 via-cyan-400/50 to-transparent transform -translate-x-1/2"></div>
+
+        <FeaturesSection>
+            <div class="flex flex-col lg:flex-row gap-10 xl:gap-14">
+                <div class="flex flex-col w-full lg:w-1/2">
+                    <div class="text-center lg:text-start">
+                        <span class="text-sm text-cyan-400 font-medium">Our Platform</span>
+                        <div class="text-white text-5xl font-bold my-5 text-pretty">
+                            A Platform for <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500">Real-Time Data</span>
+                        </div>
+                        <p class="text-slate-300 text-base leading-relaxed text-balance">
+                            We build a unified platform for streaming, processing, and distributing data in real time. From event-driven applications to analytics and AI pipelines, our platform provides the infrastructure layer that modern products rely on.
+                        </p>
+                        <p class="text-slate-300 text-base leading-relaxed text-balance mt-4">
+                            Our goal is to become the universal real-time data layer for modern applications, analytics, and AI—powering everything from customer experiences to autonomous systems.
+                        </p>
+                    </div>
+                </div>
+                <div class="hidden lg:block w-[2px]"></div>
+                <div class="block lg:hidden w-[2px]"></div>
+                <div class="flex flex-col w-full lg:w-1/2">
+                    <div class="text-center lg:text-start">
+                        <span class="text-sm text-cyan-400 font-medium">Our Version</span>
+                        <div class="text-white text-5xl font-bold my-5 text-pretty">
+                            The <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500">Future</span> of Data Infrastructure
+                        </div>
+                        <p class="text-slate-300 text-base leading-relaxed text-balance">
+                            Data infrastructure should be a foundation, not a bottleneck. We believe every organization deserves a resilient, high-performance data platform that simplifies complexity and accelerates innovation.
+                        </p>
+                        <p class="text-slate-300 text-base leading-relaxed text-balance mt-4">
+                            Our vision is to enable companies to unify data pipelines, automate governance, and deliver insights at scale—without sacrificing performance, security, or reliability.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </FeaturesSection>
+    </section>
+</div>
+<div class="bg-gradient-to-b from-sky-900/75 to-slate-900">
+    <FeaturesSection>
+        <div class="text-center lg:text-start">
+            <span class="text-sm text-cyan-400 font-medium">Our Philosophy</span>
+            <p class="text-5xl font-semibold mt-5">
+                We believe infrastructure should be invisible. The best platforms empower teams to <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500">innovate without worrying</span> about operational complexity. Real-time data <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500">should be accessible, reliable, and effortless.</span>
+            </p>
+        </div>
+    </FeaturesSection>
+</div>
+<div class="bg-slate-900">
+    <FeaturesSection>
+        <section class="overflow-hidden mb-16 text-center flex flex-col items-center">
+            <span class="text-sm text-cyan-400 font-medium">Trusted by</span>
+            <p class="text-5xl font-bold mt-2">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500">Trusted</span> by leading teams worldwide
+            </p>
+            <div class="max-w-7xl px-3 overflow-hidden mx-auto my-6">
+                <div class="flex justify-center animate-marquee gap-8">
+                    {Array(10).fill(logos).flat().map((logo, i) => (
+                        <img
+                            src={logo.src} 
+                            alt={logo.name}
+                            class="h-10 w-auto flex-shrink-0"
+                        />
+                    ))}
+                </div>
+            </div>
+            <span class="text-xl font-normal">Organizations rely on Fluentum to power mission-critical workloads.</span>
+            <Button variant="primary" class="mt-4">Start Free</Button>
+        </section>
+    </FeaturesSection>
+</div>
+<div class="bg-gradient-to-b from-slate-900 to-cyan-900">
+    <TestimonialCarousel />
+</div>
+
+<script>
+    const carousel = document.getElementById('carousel');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    const scrollAmount = 580; // Approximate card width + gap
+
+    nextBtn?.addEventListener('click', () => {
+        carousel?.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+
+    prevBtn?.addEventListener('click', () => {
+        carousel?.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+</script>
+
+<style>
+    .custom-gradient-to-l {
+        background: linear-gradient(90deg,rgba(42, 123, 155, 0) 40%, rgba(59, 185, 208, 0.15) 100%);
+    }
+    .custom-gradient-to-r {
+        background: linear-gradient(240deg,rgba(42, 123, 155, 0) 40%, rgba(59, 185, 208, 0.15) 100%);
+    }
+    .custom-gradient-to-t {
+        background: linear-gradient(180deg,rgba(42, 123, 155, 0) 20%, rgba(59, 185, 208, 0.15) 100%);
+    }
+
+    .line-gradient-to-t {
+        background: linear-gradient(180deg,rgba(42, 123, 155, 0) 20%, rgba(59, 185, 208) 100%);
+    }
+</style>

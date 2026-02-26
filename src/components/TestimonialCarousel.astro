@@ -1,0 +1,343 @@
+---
+// Data testimonial
+const testimonials = [
+  {
+    quote: "Enterprise security and governance features allowed us to meet internal compliance requirements",
+    author: "Engineering Manager",
+    company: "Financial Services Organization",
+    variant: "dark"
+  },
+  {
+    quote: "We reduced data latency from minutes to milliseconds and simplified our streaming architecture",
+    author: "Head of Data Platform",
+    company: "Global Technology Company",
+    variant: "gradient"
+  },
+  {
+    quote: "The Kafka compatibility and operational simplicity helped our team migrate without disrupting existing pipelines",
+    author: "Staff Software Engineer",
+    company: "SaaS Company",
+    variant: "cyan"
+  },
+  {
+    quote: "Fluentum transformed how we handle real-time analytics with immediate performance gains",
+    author: "CTO",
+    company: "FinTech Startup",
+    variant: "gradient"
+  },
+  {
+    quote: "Cut our infrastructure costs by 40% while improving data throughput significantly",
+    author: "Data Architect",
+    company: "Cloud Provider",
+    variant: "dark"
+  }
+];
+
+// Helper functions
+function getVariantStyle(variant: string) {
+  const styles = {
+    gradient: "bg-gradient-to-br from-cyan-500 via-blue-600 to-blue-900",
+    dark: "bg-slate-900/90 backdrop-blur-sm",
+    cyan: "bg-cyan-300"
+  };
+  return styles[variant as keyof typeof styles] || styles.dark;
+}
+
+function getQuoteColor(variant: string) {
+  const colors = {
+    gradient: "text-cyan-300",
+    dark: "text-slate-500",
+    cyan: "text-blue-600"
+  };
+  return colors[variant as keyof typeof colors] || colors.dark;
+}
+
+function getTextColor(variant: string) {
+  const colors = {
+    gradient: "text-white",
+    dark: "text-slate-300",
+    cyan: "text-slate-800"
+  };
+  return colors[variant as keyof typeof colors] || colors.dark;
+}
+
+function getAuthorColor(variant: string) {
+  const colors = {
+    gradient: "text-cyan-200",
+    dark: "text-slate-400",
+    cyan: "text-slate-700"
+  };
+  return colors[variant as keyof typeof colors] || colors.dark;
+}
+---
+
+<div class="testimonial-section relative h-auto py-28 overflow-hidden" data-testimonial-carousel>
+  
+  <div class="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <!-- Header -->
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-16">
+      <div class="flex flex-col gap-4 text-start max-w-3xl">
+        <span class="text-sm text-cyan-400 font-medium tracking-wider uppercase">What they Say</span>
+        <p class="text-4xl md:text-5xl font-bold leading-tight text-white">
+          What Teams Say About <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500">Fluentum</span>
+        </p>
+        <span class="text-lg text-slate-400 font-normal">
+          Hear from engineering teams using our platform for real-time data workloads
+        </span>
+      </div>
+      
+      <!-- Navigation -->
+      <div class="flex items-center gap-3">
+        <button class="carousel-prev w-20 h-20 rounded-full border-2 border-blue-500 flex items-center justify-center text-white hover:bg-blue-500 hover:text-blue-900 transition-all" aria-label="Previous">
+            <img src="./arrow-left.png" alt="Previous Icon"/>
+        </button>
+        <button class="carousel-next w-20 h-20 rounded-full border-2 border-blue-500 flex items-center justify-center text-white hover:bg-blue-500 hover:text-blue-900 transition-all ml-2" aria-label="Next">
+            <img src="./arrow-right.png" alt="Next Icon"/>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3D Carousel Container -->
+  <div class="relative w-full h-[500px] perspective-1000">
+    <!-- Cards Container -->
+    <div class="carousel-container absolute inset-0 flex items-center justify-center">
+      {testimonials.map((item, index) => {
+        const variantStyle = getVariantStyle(item.variant);
+        const quoteColor = getQuoteColor(item.variant);
+        const textColor = getTextColor(item.variant);
+        const authorColor = getAuthorColor(item.variant);
+        
+        return (
+          <div 
+            class={`testimonial-card absolute w-[380px] md:w-[420px] lg:w-[480px] px-10 py-12 rounded-3xl transition-all duration-700 ease-out cursor-pointer ${variantStyle}`}
+            data-index={index}
+            style={`
+              transform-style: preserve-3d;
+              backface-visibility: hidden;
+            `}
+          >
+            <div class="mb-6">
+              <svg class={`w-10 h-10 ${quoteColor}`} fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+            </div>
+
+            <p class={`text-xl md:text-2xl leading-relaxed mb-8 font-light ${textColor}`}>
+              {item.quote}
+            </p>
+
+            <div class="space-y-1">
+              <p class={`text-sm font-medium ${authorColor}`}>
+                {item.author},
+              </p>
+              <p class={`text-sm ${authorColor} opacity-80`}>
+                {item.company}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Progress Indicators -->
+  <div class="flex justify-center gap-2 mt-8 relative z-20">
+    {testimonials.map((_, index) => (
+      <button 
+        class="carousel-dot w-2 h-2 rounded-full bg-slate-600 transition-all duration-300 hover:bg-blue-400"
+        data-index={index}
+        aria-label={`Go to testimonial ${index + 1}`}
+      />
+    ))}
+  </div>
+</div>
+
+<script>
+  class TestimonialCarousel {
+    container: HTMLElement;
+    cards: NodeListOf<HTMLElement>;
+    prevBtn: HTMLElement | null;
+    nextBtn: HTMLElement | null;
+    dots: NodeListOf<HTMLElement>;
+    
+    currentIndex: number = 1;
+    totalCards: number = 0;
+    autoPlayInterval: number | null = null;
+
+    // 3D positions
+    positions = {
+      farLeft: { x: -600, y: 0, z: -100, scale: 0.7, opacity: 0, rotateY: 0 },
+      leftBack: { x: -350, y: 20, z: -50, scale: 0.85, opacity: 0.5, rotateY: 0 },
+      active: { x: 0, y: 0, z: 0, scale: 1, opacity: 1, rotateY: 0 },
+      right: { x: 500, y: 0, z: 0, scale: 1, opacity: 1, rotateY: 0 },
+      farRight: { x: 700, y: 0, z: 0, scale: 1, opacity: 0, rotateY: 0 }
+    };
+
+    constructor(container: HTMLElement) {
+      this.container = container;
+      this.cards = container.querySelectorAll('.testimonial-card');
+      this.prevBtn = container.querySelector('.carousel-prev');
+      this.nextBtn = container.querySelector('.carousel-next');
+      this.dots = container.querySelectorAll('.carousel-dot');
+      this.totalCards = this.cards.length;
+
+      this.init();
+    }
+
+    init() {
+      this.bindEvents();
+      this.updateCarousel();
+      this.startAutoPlay();
+      
+      window.addEventListener('resize', () => this.updateCarousel());
+    }
+
+    bindEvents() {
+      this.prevBtn?.addEventListener('click', () => this.prev());
+      this.nextBtn?.addEventListener('click', () => this.next());
+
+      this.dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => this.goTo(index));
+      });
+
+      // Click cards to navigate
+      this.cards.forEach((card, index) => {
+        card.addEventListener('click', () => {
+          if (index !== this.currentIndex) this.goTo(index);
+        });
+      });
+
+      // Pause on hover
+      this.container.addEventListener('mouseenter', () => this.stopAutoPlay());
+      this.container.addEventListener('mouseleave', () => this.startAutoPlay());
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') this.prev();
+        if (e.key === 'ArrowRight') this.next();
+      });
+    }
+
+    getPosition(relativeIndex: number) {
+      switch (relativeIndex) {
+        case -2: return this.positions.farLeft;
+        case -1: return this.positions.leftBack;
+        case 0: return this.positions.active;
+        case 1: return this.positions.right;
+        case 2: return this.positions.farRight;
+        default: 
+          if (relativeIndex < -2) return { ...this.positions.farLeft, x: this.positions.farLeft.x + (relativeIndex + 2) * 100 };
+          if (relativeIndex > 2) return { ...this.positions.farRight, x: this.positions.farRight.x + (relativeIndex - 2) * 100 };
+          return this.positions.farRight;
+      }
+    }
+
+    updateCarousel() {
+      this.cards.forEach((card, index) => {
+        const relativeIndex = index - this.currentIndex;
+        const pos = this.getPosition(relativeIndex);
+        
+        // Apply 3D transform
+        card.style.transform = `
+          translateX(${pos.x}px) 
+          translateY(${pos.y}px) 
+          translateZ(${pos.z}px) 
+          scale(${pos.scale}) 
+          rotateY(${pos.rotateY}deg)
+        `;
+        card.style.opacity = String(pos.opacity);
+        card.style.zIndex = String(100 - Math.abs(relativeIndex));
+        
+        // Styling berdasarkan posisi
+        if (relativeIndex === 0) {
+          // Active card
+          card.style.filter = 'none';
+          card.style.pointerEvents = 'auto';
+        } else if (relativeIndex === -1) {
+          // Left back - kecil, geser kiri, di belakang
+          card.style.filter = 'blur(2px) brightness(0.7)';
+          card.style.pointerEvents = 'auto';
+        } else if (relativeIndex === 1) {
+          // Right - normal scale, di kanan
+          card.style.filter = 'blur(1px) brightness(0.9)';
+          card.style.pointerEvents = 'auto';
+        } else {
+          // Far cards
+          card.style.filter = 'blur(4px) brightness(0.5)';
+          card.style.pointerEvents = 'none';
+        }
+      });
+
+      // Update dots
+      this.dots.forEach((dot, index) => {
+        const isActive = index === this.currentIndex;
+        dot.classList.toggle('bg-blue-500', isActive);
+        dot.classList.toggle('w-8', isActive);
+        dot.classList.toggle('bg-slate-600', !isActive);
+        dot.classList.toggle('w-2', !isActive);
+      });
+    }
+
+    next() {
+      this.currentIndex = (this.currentIndex + 1) % this.totalCards;
+      this.updateCarousel();
+    }
+
+    prev() {
+      this.currentIndex = (this.currentIndex - 1 + this.totalCards) % this.totalCards;
+      this.updateCarousel();
+    }
+
+    goTo(index: number) {
+      this.currentIndex = Math.max(0, Math.min(index, this.totalCards - 1));
+      this.updateCarousel();
+    }
+
+    startAutoPlay() {
+      this.stopAutoPlay();
+      this.autoPlayInterval = window.setInterval(() => this.next(), 5000);
+    }
+
+    stopAutoPlay() {
+      if (this.autoPlayInterval) {
+        clearInterval(this.autoPlayInterval);
+        this.autoPlayInterval = null;
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-testimonial-carousel]').forEach(carousel => {
+      new TestimonialCarousel(carousel as HTMLElement);
+    });
+  });
+</script>
+
+<style>
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .carousel-container {
+    transform-style: preserve-3d;
+  }
+
+  .testimonial-card {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+
+  /* Smooth transitions */
+  .testimonial-card {
+    transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                opacity 0.5s ease,
+                filter 0.5s ease;
+  }
+
+  /* Dot transitions */
+  .carousel-dot {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
