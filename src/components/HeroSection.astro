@@ -1,7 +1,8 @@
 ---
-// src/components/HeroSection.astro
-
 import Button from './ui/Button.astro';
+import SearchBar from './ui/SearchBar.astro';
+
+type LayoutMode = 'default' | 'search' | 'image';
 
 interface Props {
   img?: string;
@@ -16,6 +17,14 @@ interface Props {
     text: string;
     href: string;
   };
+  // Mode layout: 'default' (buttons), 'search' (search bar), 'image' (image + buttons)
+  mode?: LayoutMode;
+  // Konfigurasi search (hanya digunakan jika mode = 'search')
+  searchConfig?: {
+    placeholder?: string;
+    action?: string;
+    buttonText?: string;
+  };
 }
 
 const { 
@@ -24,20 +33,32 @@ const {
   title, 
   description,
   primaryButton = { text: "Request Demo", href: "#demo" },
-  secondaryButton = { text: "Explore Platform", href: "#platform" }
+  secondaryButton = { text: "Explore Platform", href: "#platform" },
+  // Default mode berdasarkan konten
+  mode = 'default',
+  searchConfig = {
+    placeholder: "Search articles, topics, or keywords...",
+    action: "/search",
+    buttonText: "Search"
+  }
 } = Astro.props;
+
+// Tentukan layout aktif
+const hasImage = !!img;
+const isSearchMode = mode === 'search';
+const isDefaultMode = mode === 'default' || (!isSearchMode && !hasImage);
 ---
 
 <section class:list={[
   "min-h-[100dvh] py-20 lg:pt-24 xl:pt-40 bg-[url('/Pattern.png')] bg-bottom bg-contain bg-no-repeat flex items-center",
-  !img && "justify-center"  // Center vertically when no image
+  !hasImage && "justify-center"
 ]}>
     
     <div class="relative w-full z-10">
         <div class="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
         
-            <!-- CONDITIONAL: Jika ada image, tampilkan seperti Gambar 2 -->
-            {img && (
+            <!-- CONDITIONAL: Jika ada image, tampilkan di atas -->
+            {hasImage && (
                 <div class="flex text-center justify-center mb-20 lg:mb-40">
                     <img 
                         src={img} 
@@ -47,16 +68,16 @@ const {
                 </div>
             )}
 
-            <!-- Grid Layout - menyesuaikan berdasarkan ada/tidaknya image -->
+            <!-- Grid Layout -->
             <div class:list={[
                 "grid grid-cols-1 gap-8",
-                img ? "lg:grid-cols-3 items-end" : "lg:grid-cols-1 items-center text-center"
+                hasImage ? "lg:grid-cols-3 items-end" : "lg:grid-cols-1 items-center text-center"
             ]}>
                 
                 <!-- Content Container -->
                 <div class:list={[
                     "flex flex-col",
-                    img ? "lg:col-span-2 text-center lg:text-start" : "col-span-1 items-center text-center mx-auto max-w-4xl"
+                    hasImage ? "lg:col-span-2 text-center lg:text-start" : "col-span-1 items-center text-center mx-auto max-w-6xl"
                 ]}>
                     <span class="text-cyan-400 text-sm lg:text-base font-medium tracking-wide uppercase">
                         {eyebrow}
@@ -64,20 +85,34 @@ const {
                     
                     <h1 class:list={[
                         "text-white text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold my-4 lg:my-6 leading-tight",
-                        !img && "max-w-4xl"
+                        !hasImage && "max-w-6xl"
                     ]}>
                         <Fragment set:html={title} />
                     </h1>
                     
                     <p class:list={[
                         "text-base lg:text-lg text-gray-400 leading-relaxed",
-                        img ? "max-w-2xl mx-auto lg:mx-0" : "max-w-2xl mx-auto"
+                        hasImage ? "max-w-2xl mx-auto lg:mx-0" : "max-w-2xl mx-auto"
                     ]}>
                         {description}
                     </p>
                     
-                    <!-- Buttons - Pindah ke dalam container content ketika tidak ada image -->
-                    {!img && (
+                    <!-- SEARCH MODE: Tampilkan SearchBar -->
+                    {isSearchMode && (
+                        <div class="mt-8 w-full max-w-2xl mx-auto lg:mx-0">
+                            <SearchBar 
+                                placeholder={searchConfig.placeholder}
+                                action={searchConfig.action}
+                                buttonText={searchConfig.buttonText}
+                                size="md"
+                                rounded="lg"
+                                fullWidth={false}
+                            />
+                        </div>
+                    )}
+
+                    <!-- DEFAULT MODE: Tampilkan Buttons (hanya jika tidak ada image) -->
+                    {!hasImage && isDefaultMode && (
                         <div class="flex flex-row gap-3 mt-8 justify-center">
                             <Button 
                                 href={primaryButton.href}
@@ -100,8 +135,8 @@ const {
                     )}
                 </div>
 
-                <!-- Buttons - Hanya muncul di kanan bawah ketika ADA image -->
-                {img && (
+                <!-- IMAGE MODE: Buttons di kanan bawah (hanya jika ada image dan mode default) -->
+                {hasImage && isDefaultMode && (
                     <div class="col-span-1 content-end w-full">
                         <div class="flex flex-row gap-3 justify-center lg:justify-start mt-6">
                             <Button 

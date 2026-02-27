@@ -1,0 +1,148 @@
+---
+import FeaturesSection from '@components/FeaturesSection.astro';
+import HeroSection from '@components/HeroSection.astro';
+import BlogSection from '@components/BlogSection.astro';
+
+const blogPosts = [
+  {
+    id: '1',
+    title: 'Streaming Data for AI Pipelines: From Events to Intelligence',
+    excerpt: 'Learn how real-time data pipelines power modern machine learning applications and enable intelligent decision-making at scale.',
+    image: './blog.jpg',
+    category: 'Engineering',
+    date: '2025-08-16',
+    href: '/blog/streaming-data-ai'
+  },
+  {
+    id: '2',
+    title: 'Designing Low-Latency Streaming Systems at Scale',
+    excerpt: 'Learn how to architect streaming systems that handle millions of events per second with sub-second latency.',
+    image: './blog.jpg',
+    category: 'Engineering',
+    date: '2025-09-22',
+    href: '/blog/low-latency-streaming'
+  },
+  {
+    id: '3',
+    title: 'Event-Driven Architecture for Modern Applications',
+    excerpt: 'Explore how event-driven systems enable scalable, resilient microservices architectures.',
+    image: './blog.jpg',
+    category: 'Data Architecture',
+    date: '2025-08-18',
+    href: '/blog/event-driven-architecture'
+  },
+  // TAMBAHKAN INI untuk mode category-list
+  {
+    id: '4',
+    title: 'New Connector Iteration: Cloud Warehouses',
+    excerpt: 'Native integrations for modern analytics platforms with improved schema detection.',
+    image: './blog.jpg',
+    category: 'Product Updates',
+    date: '2025-01-24',
+    href: '/updates/cloud-warehouses'
+  },
+  {
+    id: '5',
+    title: 'Security Iteration: Advanced Access Controls',
+    excerpt: 'Granular RBAC and enhanced audit logging for enterprise compliance.',
+    image: './blog.jpg',
+    category: 'Product Updates',
+    date: '2025-08-11',
+    href: '/updates/security-rbac'
+  },
+  {
+    id: '6',
+    title: 'v1.3 — Performance Iteration',
+    excerpt: 'Native integrations for modern analytics platforms with 10x throughput improvement.',
+    image: './blog.jpg',
+    category: 'Product Updates',
+    date: '2025-09-18',
+    href: '/updates/v1-3'
+  }
+];
+
+const categories = ['All Articles', 'Engineering', 'Data Architecture', 'AI & Analytics', 'Product Updates'];
+---
+<div class="bg-gradient-to-b from-slate-950 via-slate-900 to-sky-900/75">
+    <HeroSection
+        mode="search"
+        eyebrow="Blog"
+        title="Insights and Updates on Real-Time Data Infrastructure"
+        description="Explore engineering insights, product updates, and company news"
+        searchConfig={{
+            placeholder: "Search articles, topics, or keywords...",
+            action: "/search",
+            buttonText: "Search"
+        }}
+    />
+</div>
+
+<!-- Featured Post (1 terbaru) -->
+<div class="bg-slate-900">
+    <FeaturesSection>
+        <div class="text-center lg:text-start mb-10">
+            <span class="text-sm text-cyan-400 font-medium">Featured</span>
+            <div class="text-white text-5xl font-bold my-5 text-pretty">
+                Latest <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500">Article</span>
+            </div>
+            <p class="text-slate-300 text-base leading-relaxed text-balance">
+                Our most recent insights and updates
+            </p>
+        </div>
+        <BlogSection
+            mode="latest-1"
+            posts={blogPosts}
+        />
+    </FeaturesSection>
+</div>
+
+<!-- 3 Data Terbaru (skip yang pertama) -->
+<div class="bg-slate-900">
+    <FeaturesSection>
+        <div class="mb-10 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">More Insights</h2>
+            <p class="text-slate-400">Explore our latest thinking</p>
+        </div>
+        <BlogSection
+            mode="latest-3"
+            posts={blogPosts}
+        />
+    </FeaturesSection>
+</div>
+
+<!-- Product Updates (tanpa gambar) -->
+<div class="bg-gradient-to-r from-slate-900 from-10% to-cyan-400/30">
+    <FeaturesSection>
+        <div class="flex flex-row justify-start items-center gap-6 mb-14">
+            <div class="flex-shrink flex items-center justify-center ">
+                <img src="./Connector.png" alt="Product Update" class="max-w-full max-h-[150px] w-auto h-auto object-contain">
+            </div>
+            <div class="text-start">
+                <span class="text-cyan-400 text-sm font-medium tracking-wide uppercase">Product Updates</span>
+                <h2 class="text-4xl font-bold text-white mt-4 mb-4">
+                    Build, Release, <span class="text-blue-400">Iterate</span>
+                </h2>
+                <p class="text-slate-400 text-lg">Explore engineering insights, product updates, and company news</p>
+            </div>
+        </div>
+        <BlogSection
+            mode="category-list"
+            posts={blogPosts}
+            filterCategory="Product Updates"
+            limit={3}
+        />
+    </FeaturesSection>
+</div>
+
+<!-- Semua Data dengan Kategori -->
+<div class="bg-slate-900">
+    <FeaturesSection>
+        <BlogSection
+            mode="all"
+            posts={blogPosts}
+            showCategories={true}
+            categories={categories}
+            activeCategory="All Articles"
+        />
+    </FeaturesSection>
+</div>

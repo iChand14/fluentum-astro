@@ -1,0 +1,104 @@
+---
+import Button from './Button.astro';
+
+interface Props {
+  placeholder?: string;
+  action?: string;
+  method?: string;
+  inputName?: string;
+  buttonText?: string;
+  size?: 'sm' | 'md' | 'lg';
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  class?: string;
+  fullWidth?: boolean;
+}
+
+const {
+  placeholder = "Search articles, topics, or keywords...",
+  action = "/search",
+  method = "GET",
+  inputName = "q",
+  buttonText = "Search",
+  size = 'md',
+  rounded = 'lg',
+  class: className = '',
+  fullWidth = false
+} = Astro.props;
+
+// Size configurations untuk input (button sudah punya di komponen Button)
+const inputSizes = {
+  sm: 'py-2 px-4 text-sm',
+  md: 'py-3 px-5 text-base',
+  lg: 'py-4 px-6 text-lg',
+};
+
+// Rounded classes untuk container wrapper
+const wrapperRoundeds = {
+  none: 'rounded-none',
+  sm: 'rounded-sm',
+  md: 'rounded-md',
+  lg: 'rounded-lg',
+  xl: 'rounded-xl',
+  full: 'rounded-full',
+};
+---
+
+<form 
+  action={action} 
+  method={method} 
+  class:list={[
+    "relative flex items-center",
+    fullWidth ? "w-full" : "w-full max-w-2xl",
+    className
+  ]}
+>
+  <!-- Input Wrapper dengan styling glassmorphism -->
+  <div class:list={[
+    "flex-1 flex items-center bg-white/5 border border-blue-500",
+    "focus-within:border-blue-500/50 focus-within:ring-2 focus-within:ring-blue-500/20",
+    "transition-all duration-300",
+    wrapperRoundeds[rounded],
+    size === 'sm' ? 'h-10' : size === 'md' ? 'h-12' : 'h-14'
+  ]}>
+    <!-- Search Icon (Optional, di kiri) -->
+    <div class="pl-4 text-slate-400">
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        class="w-5 h-5" 
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </div>
+
+    <!-- Search Input -->
+    <input
+      type="search"
+      name={inputName}
+      placeholder={placeholder}
+      class:list={[
+        "flex-1 bg-transparent text-white placeholder-slate-400 border-none outline-none",
+        "focus:ring-0 focus:outline-none",
+        inputSizes[size],
+        "w-full"
+      ]}
+      required
+    />
+  </div>
+
+  <!-- Search Button menggunakan komponen Button yang sudah ada -->
+  <div class="ml-3">
+    <Button 
+      type="submit"
+      gradient={{ from: 'blue-500', to: 'blue-900' }}
+      {size}
+      {rounded}
+      shadow={true}
+    >
+      {buttonText}
+    </Button>
+  </div>
+</form>

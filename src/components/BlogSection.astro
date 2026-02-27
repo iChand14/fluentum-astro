@@ -1,0 +1,206 @@
+---
+import BlogCard from './BlogCard.astro';
+
+interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  category: string;
+  date: string;
+  href?: string;
+}
+
+interface Props {
+  mode: 'all' | 'latest-3' | 'latest-1' | 'category-list';
+  posts: BlogPost[];
+  showCategories?: boolean;
+  categories?: string[];
+  activeCategory?: string;
+  title?: string;
+  description?: string;
+  filterCategory?: string;
+  limit?: number;
+}
+
+const {
+  mode,
+  posts,
+  showCategories = false,
+  categories = [],
+  activeCategory = 'All Articles',
+  title,
+  description,
+  filterCategory = 'Product Updates',
+  limit = 3
+} = Astro.props;
+
+// Filter and sort posts by date (newest first)
+const sortedPosts = [...posts].sort((a, b) => 
+  new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+
+// Get posts based on mode
+let displayPosts: BlogPost[] = [];
+if (mode === 'latest-1') {
+  displayPosts = sortedPosts.slice(0, 1);
+} else if (mode === 'latest-3') {
+  displayPosts = sortedPosts.slice(1, 4);
+} else if (mode === 'category-list') {
+  displayPosts = sortedPosts
+    .filter(post => post.category === filterCategory)
+    .slice(0, limit);
+} else {
+  displayPosts = sortedPosts;
+}
+
+// Group posts by category for 'all' mode
+const groupedPosts = mode === 'all' 
+  ? displayPosts.reduce((acc, post) => {
+      if (!acc[post.category]) acc[post.category] = [];
+      acc[post.category].push(post);
+      return acc;
+    }, {} as Record<string, BlogPost[]>)
+  : {};
+
+// Format date
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+};
+---
+
+<div class="w-full">
+    <!-- MODE: Category List -->
+    {mode === 'category-list' && (
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {displayPosts.map((post) => (
+                <BlogCard {...post} variant="category-list" />
+            ))}
+        </div>
+    )}
+
+    <!-- MODE 3: Latest 1 (Featured) - Gambar 1 -->
+    {mode === 'latest-1' && displayPosts.length > 0 && (
+        <div class="w-full">
+            <BlogCard 
+                {...displayPosts[0]} 
+                variant="featured" 
+            />
+        </div>
+    )}
+
+    <!-- MODE 2: Latest 3 - Gambar 2 -->
+    {mode === 'latest-3' && (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {displayPosts.map((post) => (
+                <BlogCard {...post} variant="grid" />
+            ))}
+        </div>
+    )}
+
+    <!-- MODE 1: All Posts with Categories -->
+{mode === 'all' && (
+    <div 
+        class="flex flex-col lg:flex-row gap-8 lg:gap-12" 
+        x-data="{ activeCategory: 'All Articles' }"
+    >
+        {showCategories && (
+            <aside class="lg:w-64 flex-shrink-0">
+                <div class="sticky top-24">
+                    <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.25 9.71094H8.25V2.21094H2.25V9.71094ZM2.25 15.7109H8.25V11.2109H2.25V15.7109ZM9.75 15.7109H15.75V8.21094H9.75V15.7109ZM9.75 2.21094V6.71094H15.75V2.21094H9.75Z" fill="currentColor"/>
+                        </svg>
+                        Categories
+                    </h3>
+                    <nav class="space-y-1">
+                        {categories.map((category) => (
+                            <button
+                                type="button"
+                                @click={`activeCategory = '${category}'`}
+                                :class={`activeCategory === '${category}' ? 'bg-blue-600/20 text-cyan-400 border-l-2 border-cyan-400' : 'text-white hover:bg-slate-800/50'`}
+                                class="block w-full text-left px-4 py-2 rounded-lg text-sm transition-colors"
+                            >
+                                {category}
+                            </button>
+                        ))}
+                    </nav>
+                </div>
+            </aside>
+        )}
+
+        <div class="flex-1">
+            {showCategories ? (
+                <div class="space-y-16">
+                    <!-- Header dinamis -->
+                    <div class="mb-10 text-start">
+                        <h2 class="text-5xl font-bold text-white mb-4" x-text="activeCategory"></h2>
+                    </div>
+
+                    <!-- Tampilkan SEMUA kategori (All Articles) -->
+                    <template x-if="activeCategory === 'All Articles'">
+                        <div>
+                            {Object.entries(groupedPosts).map(([category, categoryPosts], index, array) => (
+                                <section id={category.toLowerCase().replace(/\s+/g, '-')} class="scroll-mt-24 mb-16 last:mb-0">
+                                    <div class="flex items-center gap-3 mb-6">
+                                        <div class="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                                            </svg>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-white">{category}</h3>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                                        {categoryPosts.map((post) => (
+                                            <BlogCard {...post} variant="compact" />
+                                        ))}
+                                    </div>
+                                    
+                                    {index !== array.length - 1 && (
+                                        <div class="mt-12 h-[2px] devider-blog"></div>
+                                    )}
+                                </section>
+                            ))}
+                        </div>
+                    </template>
+
+                    <!-- Tampilkan SATU kategori saja -->
+                    <template x-if="activeCategory !== 'All Articles'">
+                        <div>
+                            {categories.filter(cat => cat !== 'All Articles').map((category) => (
+                                <div x-show={`activeCategory === '${category}'`} x-transition>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                                        {groupedPosts[category]?.map((post) => (
+                                            <BlogCard {...post} variant="compact" />
+                                        )) || (
+                                            <p class="text-slate-500 col-span-2">No articles in this category.</p>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </template>
+                </div>
+            ) : (
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                    {displayPosts.map((post) => (
+                        <BlogCard {...post} variant="compact" />
+                    ))}
+                </div>
+            )}
+        </div>
+    </div>
+)}
+</div>
+
+<style>
+    .devider-blog {
+        background-image: radial-gradient(#3BB9D0 0%, #3bbad000 75%);
+    }
+</style>
